@@ -394,7 +394,7 @@ const Header = ({ user, onViewChange, onLogout }) => {
                 alt="JobNexus"
                 className="w-20 h-20 sm:w-20 sm:h-20 object-contain rounded-xl"
             />
-            <span className="text-xl sm:text-2xl font-black text-white tracking-tighter group-hover:text-cyan-200 transition-colors">JobNexus</span>
+
         </div>
 
         <div className="flex items-center gap-2 sm:gap-4">
