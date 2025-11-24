@@ -19,11 +19,10 @@ import {
   Star,
   Upload,
   User,
-  X,
-  Zap
+  X
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import logo from '../src/assets/SOFLOGO.png';
+import logo from "./assets/SOFLOGO.png";
 
 /**
  * MOCK DATA (Localized for India)
@@ -183,30 +182,29 @@ const PostJob = ({ onCancel, onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Transform data to match mock structure
     const newJob = {
       id: Date.now(),
       ...formData,
       posted: 'Just now',
       applicants: 0,
-      logoColor: 'bg-indigo-600', // Default color
+      logoColor: 'bg-indigo-600',
       tags: formData.tags.split(',').map(t => t.trim()),
       requirements: formData.requirements.split('\n').filter(r => r.trim()),
-      benefits: ["Standard Benefits", "Great Culture"] // Default
+      benefits: ["Standard Benefits", "Great Culture"]
     };
     onSubmit(newJob);
   };
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fadeIn">
-      <div className="bg-slate-800/50 backdrop-blur-md rounded-3xl border border-slate-700 p-8 shadow-xl">
+      <div className="bg-slate-800/50 backdrop-blur-md rounded-3xl border border-slate-700 p-6 sm:p-8 shadow-xl">
         <div className="flex items-center gap-4 mb-8">
-            <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/20">
+            <div className="w-12 h-12 bg-linear-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/20 flex-shrink-0">
                 <Plus className="w-6 h-6 text-white" />
             </div>
             <div>
               <h2 className="text-2xl font-black text-white">Post a New Job</h2>
-              <p className="text-slate-400">Reach thousands of tech professionals across India.</p>
+              <p className="text-slate-400 text-sm sm:text-base">Reach thousands of tech professionals across India.</p>
             </div>
         </div>
 
@@ -307,7 +305,7 @@ const PostJob = ({ onCancel, onSubmit }) => {
               />
           </div>
 
-          <div className="flex gap-4 pt-4">
+          <div className="flex flex-col-reverse sm:flex-row gap-4 pt-4">
             <button
               type="button"
               onClick={onCancel}
@@ -388,38 +386,37 @@ const ApplyModal = ({ job, isOpen, onClose, onSubmit }) => {
 // Header Component
 const Header = ({ user, onViewChange, onLogout }) => {
   return (
-    <div className="absolute top-0 left-0 right-0 z-50 px-6 py-6">
+    <div className="absolute top-0 left-0 right-0 z-50 px-4 sm:px-6 py-4 sm:py-6">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div className="flex items-center gap-2 cursor-pointer group" onClick={() => onViewChange('home')}>
-    {/* Start of Logo Change */}
-    <img
-        src={logo}
-        alt="Logo"
-        className="w-50 h-50 object-contain rounded-xl"
-    />
-
+             <img
+                src={logo}
+                alt="JobNexus"
+                className="w-20 h-20 sm:w-20 sm:h-20 object-contain rounded-xl"
+            />
+            <span className="text-xl sm:text-2xl font-black text-white tracking-tighter group-hover:text-cyan-200 transition-colors">JobNexus</span>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
             {user ? (
-                <div className="flex items-center gap-4 bg-slate-900/50 backdrop-blur-md p-1.5 rounded-full border border-slate-700/50">
+                <div className="flex items-center gap-2 sm:gap-4 bg-slate-900/50 backdrop-blur-md p-1.5 rounded-full border border-slate-700/50">
                     <button className="p-2 rounded-full text-slate-300 hover:text-white hover:bg-slate-700 transition-colors relative">
                         <Bell className="w-5 h-5" />
                         <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-slate-900"></span>
                     </button>
-                    <div className="flex items-center gap-3 pr-2">
+                    <div className="flex items-center gap-2 sm:gap-3 pr-2">
                          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-400 to-blue-500 flex items-center justify-center text-slate-900 font-bold text-xs">
                              {user.avatar}
                          </div>
-                         <button onClick={onLogout} className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
+                         <button onClick={onLogout} className="text-xs sm:text-sm font-medium text-slate-300 hover:text-white transition-colors whitespace-nowrap">
                             Sign Out
                          </button>
                     </div>
                 </div>
             ) : (
-                <div className="flex items-center gap-4">
-                    <button onClick={() => onViewChange('login')} className="text-slate-300 hover:text-white font-medium text-sm transition-colors">Sign In</button>
-                    <button onClick={() => onViewChange('login')} className="bg-white text-slate-900 hover:bg-cyan-50 px-5 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg hover:shadow-cyan-500/20">
+                <div className="flex items-center gap-2 sm:gap-4">
+                    <button onClick={() => onViewChange('login')} className="text-slate-300 hover:text-white font-medium text-xs sm:text-sm transition-colors whitespace-nowrap">Sign In</button>
+                    <button onClick={() => onViewChange('login')} className="bg-white text-slate-900 hover:bg-cyan-50 px-3 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all shadow-lg hover:shadow-cyan-500/20 whitespace-nowrap">
                         Post Job
                     </button>
                 </div>
@@ -430,33 +427,33 @@ const Header = ({ user, onViewChange, onLogout }) => {
   )
 }
 
-// Hero Component
+// Hero Component (Responsive Navigation)
 const Hero = ({ currentView, onViewChange, user }) => {
     return (
-        <div className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <div className="relative pt-24 sm:pt-32 pb-12 sm:pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
             {/* Dynamic Backgrounds */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
-            <div className="absolute bottom-0 right-0 w-[800px] h-[600px] bg-purple-600/10 rounded-full blur-[100px] pointer-events-none mix-blend-screen" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] sm:w-[1000px] h-[600px] bg-blue-600/20 rounded-full blur-[80px] sm:blur-[120px] pointer-events-none mix-blend-screen" />
+            <div className="absolute bottom-0 right-0 w-[400px] sm:w-[800px] h-[600px] bg-purple-600/10 rounded-full blur-[60px] sm:blur-[100px] pointer-events-none mix-blend-screen" />
 
             <div className="relative max-w-5xl mx-auto text-center z-10">
 
                 {/* Main Heading */}
-                <h1 className="text-5xl md:text-7xl font-black text-white tracking-tight mb-6 leading-tight">
+                <h1 className="text-4xl sm:text-5xl md:text-7xl font-black text-white tracking-tight mb-4 sm:mb-6 leading-tight">
                     Find the <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">Future</span> <br/>
                     of Your Career.
                 </h1>
-                <p className="text-lg md:text-xl text-slate-400 mb-12 max-w-2xl mx-auto">
+                <p className="text-base sm:text-lg md:text-xl text-slate-400 mb-8 sm:mb-12 max-w-2xl mx-auto px-4">
                     The next-gen platform for tech professionals. Connect with top startups and giants instantly.
                 </p>
 
                 {/* Central Control Unit (Navigation + Search) */}
                 <div className="bg-slate-800/40 backdrop-blur-xl border border-slate-700/50 p-2 rounded-3xl shadow-2xl shadow-black/50 max-w-3xl mx-auto">
 
-                    {/* Navigation Tabs */}
-                    <div className="flex p-1 bg-slate-900/50 rounded-2xl mb-4">
+                    {/* Navigation Tabs - Grid on Mobile, Flex on Desktop */}
+                    <div className="grid grid-cols-2 sm:flex p-1 bg-slate-900/50 rounded-2xl mb-4 gap-1 sm:gap-0">
                         {[
                             { id: 'home', label: 'Dashboard', icon: LayoutDashboard },
-                            { id: 'jobs', label: 'Explore Jobs', icon: Search },
+                            { id: 'jobs', label: 'Explore', icon: Search },
                             { id: 'post-job', label: 'Post Job', icon: Plus },
                             { id: 'saved', label: 'Saved', icon: Bookmark }
                         ].map((tab) => {
@@ -478,13 +475,13 @@ const Hero = ({ currentView, onViewChange, user }) => {
                         })}
                     </div>
 
-                    {/* Search Bar - Only Active on Home/Jobs view */}
-                    <div className="flex flex-col md:flex-row gap-2 p-2">
+                    {/* Search Bar - Responsive Flex */}
+                    <div className="flex flex-col sm:flex-row gap-2 p-2">
                         <div className="flex-1 relative group">
                             <Search className="absolute left-4 top-3.5 text-slate-500 w-5 h-5 group-focus-within:text-cyan-400 transition-colors" />
                             <input
                                 type="text"
-                                placeholder="Job title, keywords..."
+                                placeholder="Job title..."
                                 className="w-full pl-12 pr-4 py-3.5 bg-slate-900/50 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 outline-none transition-all"
                             />
                         </div>
@@ -505,8 +502,8 @@ const Hero = ({ currentView, onViewChange, user }) => {
                     </div>
                 </div>
 
-                {/* Stats / Social Proof */}
-                <div className="mt-10 flex justify-center gap-8 md:gap-16 text-slate-500 text-sm font-medium">
+                {/* Stats / Social Proof - Hidden on small mobile */}
+                <div className="mt-10 hidden sm:flex justify-center gap-8 md:gap-16 text-slate-500 text-sm font-medium">
                     <div className="flex items-center gap-2">
                         <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"/>
                         <span className="text-slate-300">140+</span> New Jobs Today
@@ -532,21 +529,21 @@ const JobCard = ({ job, onClick, isSaved, onToggleSave }) => (
         if(e.target.closest('button')) return;
         onClick(job);
     }}
-    className="group bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-slate-700 p-6 hover:border-cyan-500/50 hover:bg-slate-800 transition-all duration-300 cursor-pointer flex flex-col sm:flex-row gap-5 relative overflow-hidden"
+    className="group bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-slate-700 p-5 sm:p-6 hover:border-cyan-500/50 hover:bg-slate-800 transition-all duration-300 cursor-pointer flex flex-col sm:flex-row gap-5 relative overflow-hidden"
   >
     {/* Glow Effect on Hover */}
     <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/0 to-purple-500/0 group-hover:from-cyan-500/5 group-hover:to-purple-500/5 transition-all duration-500" />
 
-    <div className={`${job.logoColor} w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0 text-white font-bold text-2xl shadow-lg shadow-black/20 group-hover:scale-105 transition-transform duration-300 relative z-10`}>
+    <div className={`${job.logoColor} w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center flex-shrink-0 text-white font-bold text-xl sm:text-2xl shadow-lg shadow-black/20 group-hover:scale-105 transition-transform duration-300 relative z-10`}>
       {job.company.charAt(0)}
     </div>
     <div className="flex-1 relative z-10">
       <div className="flex justify-between items-start">
         <div>
-          <h3 className="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">
+          <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">
             {job.title}
           </h3>
-          <p className="text-sm font-medium text-slate-400 mt-1 flex items-center gap-1">
+          <p className="text-xs sm:text-sm font-medium text-slate-400 mt-1 flex items-center gap-1">
              {job.company}
              <CheckCircle className="w-3.5 h-3.5 text-cyan-500" />
           </p>
@@ -561,13 +558,13 @@ const JobCard = ({ job, onClick, isSaved, onToggleSave }) => (
 
       <div className="mt-4 flex flex-wrap gap-2">
         {job.tags && job.tags.map(tag => (
-           <span key={tag} className="px-3 py-1 rounded-lg text-xs font-bold bg-slate-900 border border-slate-700 text-slate-300 group-hover:border-slate-600 transition-colors">
+           <span key={tag} className="px-2 sm:px-3 py-1 rounded-lg text-xs font-bold bg-slate-900 border border-slate-700 text-slate-300 group-hover:border-slate-600 transition-colors">
              {tag}
            </span>
         ))}
       </div>
 
-      <div className="mt-5 flex flex-wrap items-center gap-y-2 gap-x-6 text-sm text-slate-400 border-t border-slate-700/50 pt-4">
+      <div className="mt-5 flex flex-wrap items-center gap-y-2 gap-x-4 sm:gap-x-6 text-sm text-slate-400 border-t border-slate-700/50 pt-4">
         <div className="flex items-center gap-2">
           <MapPin className="w-4 h-4 text-slate-500" />
           {job.location}
@@ -581,7 +578,7 @@ const JobCard = ({ job, onClick, isSaved, onToggleSave }) => (
           {job.salary}
         </div>
         <div className="ml-auto text-xs text-slate-600">
-            Posted {job.posted}
+            {job.posted}
         </div>
       </div>
     </div>
@@ -611,17 +608,17 @@ const JobDetailPage = ({ job, onBack, isSaved, onToggleSave, onApply }) => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Content */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-slate-800/50 backdrop-blur-md rounded-3xl border border-slate-700 p-8 shadow-xl">
+          <div className="bg-slate-800/50 backdrop-blur-md rounded-3xl border border-slate-700 p-6 sm:p-8 shadow-xl">
 
             {/* Header */}
             <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center justify-between">
                <div className="flex gap-5 items-center">
-                  <div className={`${job.logoColor} w-20 h-20 rounded-2xl flex items-center justify-center text-white font-bold text-3xl shadow-lg`}>
+                  <div className={`${job.logoColor} w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center text-white font-bold text-2xl sm:text-3xl shadow-lg`}>
                     {job.company.charAt(0)}
                   </div>
                   <div>
-                    <h1 className="text-3xl font-black text-white tracking-tight">{job.title}</h1>
-                    <div className="text-lg text-slate-400 mt-1 font-medium">{job.company}</div>
+                    <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">{job.title}</h1>
+                    <div className="text-base sm:text-lg text-slate-400 mt-1 font-medium">{job.company}</div>
                   </div>
                </div>
                <div className="flex gap-3 w-full sm:w-auto">
@@ -659,13 +656,13 @@ const JobDetailPage = ({ job, onBack, isSaved, onToggleSave, onApply }) => {
 
             {/* Description */}
             <div className="mt-10">
-              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-6 flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-slate-700 flex items-center justify-center">
                     <FileText className="w-5 h-5 text-cyan-400"/>
                 </div>
                 Job Description
               </h3>
-              <div className="text-slate-300 leading-relaxed text-base space-y-4">
+              <div className="text-slate-300 leading-relaxed text-sm sm:text-base space-y-4">
                 <p>{job.description}</p>
                 <p>We are a fast-growing team dedicated to building tools that empower the next generation of developers. You will work with cutting-edge tech including Next.js, Rust, and WebAssembly.</p>
               </div>
@@ -673,7 +670,7 @@ const JobDetailPage = ({ job, onBack, isSaved, onToggleSave, onApply }) => {
 
             {/* Requirements */}
             <div className="mt-10">
-              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-6 flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-slate-700 flex items-center justify-center">
                     <Cpu className="w-5 h-5 text-purple-400"/>
                 </div>
@@ -754,7 +751,7 @@ const Login = ({ onLogin, onCancel }) => {
   };
 
   return (
-    <div className="min-h-[70vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative z-10 pt-32 animate-fadeIn">
+    <div className="min-h-[70vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative z-10 pt-24 sm:pt-32 animate-fadeIn">
       {/* Dynamic Backgrounds */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none mix-blend-screen" />
 
@@ -930,9 +927,11 @@ const Footer = () => (
       <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
         <div className="col-span-2 md:col-span-1">
            <div className="flex items-center gap-2 mb-4 group cursor-default">
-              <div className="w-8 h-8 bg-gradient-to-br from-cyan-600 to-blue-600 rounded-lg flex items-center justify-center">
-                <Zap className="w-4 h-4 text-white fill-white" />
-              </div>
+             <img
+                src="/assets/logo.png"
+                alt="JobNexus"
+                className="w-14 h-14 object-contain rounded-lg"
+            />
               <span className="text-xl font-black text-white tracking-tighter">JobNexus</span>
            </div>
            <p className="text-slate-500 text-sm leading-relaxed max-w-xs">
